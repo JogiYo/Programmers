@@ -19,25 +19,18 @@ public class check_lv2_1 {
 	}
 	
 	 static boolean solution(String s) {
-		 boolean answer = false;
-		 
 		 Stack<Character> stk = new Stack<Character>();
 	     
-		 for(int i = 0; i < s.length(); i++) {
-			 if(s.charAt(i) == '(') {
-				 stk.push(s.charAt(i));
+		 try {
+			 for(int i = 0; i < s.length(); i++) {
+				 if(s.charAt(i) == '(') stk.push('(');
+				 else stk.pop();
 			 }
-			 
-			 else {
-				 if(stk.isEmpty()) return answer;
-				 else if(stk.pop() != '(') {
-					 return answer;
-				 }
-			 }
+		 } catch(Exception e) {
+			 return false;
 		 }
 		 
-		 if(stk.isEmpty()) answer = true;
-		 
-	     return answer;
+		 if(stk.isEmpty()) return true;
+		 return false;
 	 }
 }

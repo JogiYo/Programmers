@@ -30,7 +30,7 @@ public class check_lv1_2 {
 	      
 	      Arrays.sort(d);
 
-	      for(int i = 0; i < d.length-1; i++) {
+	      for(int i = 0; i < d.length; i++) {
 	    	  budget -= d[i];
 	    	  if(budget < 0) break;
 	    	  answer++;

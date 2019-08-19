@@ -3,6 +3,8 @@ package skillcheck_algo;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+// programmers, skill_check Lv2 : carpet problem
+// Search to find the appropriate value.
 public class check_lv2_2 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -13,12 +15,27 @@ public class check_lv2_2 {
 		int red = Integer.parseInt(input[1]);
 		
 		int[] answer = solution(brown, red);
-		sb.append(answer);
+		sb.append("[");
+		for(int i = 0; i < answer.length-1; i++) {
+			sb.append(answer[i] + ",");
+		}
+		sb.append(answer[answer.length-1] + "]");
 		System.out.print(sb);
 	}
 	
 	public static int[] solution(int brown, int red) {
-		int[] answer = new int[2];
+		int width = 0;
+		int height = 0;
+		
+		for(int i = 1; i <= red/2 + 1; i++) {
+			width = i;
+			if(red%i == 0) {
+				height = red/width;
+				if(2*width + 2*height + 4 == brown) break;
+			}
+		}
+		
+		int[] answer = {Math.max(width, height)+2, Math.min(width, height)+2};
 		return answer;
 	}
 }

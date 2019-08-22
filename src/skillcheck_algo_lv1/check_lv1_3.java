@@ -1,4 +1,4 @@
-package skillcheck_algo;
+package skillcheck_algo_lv1;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

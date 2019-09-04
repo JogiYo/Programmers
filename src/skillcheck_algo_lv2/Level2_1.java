@@ -6,7 +6,7 @@ import java.util.Stack;
 
 // Programmers, skill_check Lv2 : Find correct parentheses.
 // Use the properties of the stack.
-public class check_lv2_1 {
+public class Level2_1 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();

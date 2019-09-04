@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 
 // programmers, skill_check Lv2 : carpet problem
 // Search to find the appropriate value.
-public class check_lv2_2 {
+public class Level2_2 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();

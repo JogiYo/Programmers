@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 // Programmers, skill_check Lv2 : TP book prefix problem
 // The 'startsWith(prefix)'method is important. 
 // solve a problem through brute force
-public class check_lv2_3 {
+public class Level2_3 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();

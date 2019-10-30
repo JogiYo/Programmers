@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 // Programmers Level 1 : Failure rate(2019 KAKAO BLIND RECRUITMENT)
+// using sorting Descending order
 public class Level1_33 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -28,29 +29,35 @@ public class Level1_33 {
 		System.out.print(sb);
 	}
 	
-	public static int[] solution(int n, int[] stages) {
-		int[] answer = new int[n];
-		double[] failure_rate = new double[n];
+	public static int[] solution(int N, int[] stages) {
+		int[] answer = new int[N];
+		double[] failure_rate = new double[N+1];
+		int[] trial = new int[N+2];
+		int[] reached = new int[N+1];
+		int totalChallenger = stages.length;
 		
-		for(int i = 0; i < n; i++) {
-			double denominator = 0;
-			double numerator = 0;
-			
-			for(int j = 0; j < stages.length; j++) {
-				if(i+1 == stages[j]) numerator++;
-				if(i+1 <= stages[j]) denominator++;
-			}
-			failure_rate[i] = numerator/denominator;
+		for(int i = 0; i < stages.length; i++) {
+			trial[stages[i]]++;
+		}
+		
+		reached[0] = totalChallenger;
+		
+		// failure rate.
+		for(int i = 1; i <= N; i++) {
+			reached[i] = reached[i-1] - trial[i-1];
+			if(trial[i] == 0) failure_rate[i] = 0;
+			else failure_rate[i] = trial[i] / (double) reached[i];
 		}
 		
 		ArrayList<Pair> list = new ArrayList<Pair>();
 		
-		for(int i = 0; i < n; i++) {
-			list.add(new Pair(i+1, failure_rate[i]));
+		for(int i = 1; i <= N; i++) {
+			list.add(new Pair(i, failure_rate[i]));
 		}
+		
 		Collections.sort(list);
 		
-		for(int i = 0; i < n; i++) {
+		for(int i = 0; i < N; i++) {
 			answer[i] = list.get(i).index;
 		}
 		

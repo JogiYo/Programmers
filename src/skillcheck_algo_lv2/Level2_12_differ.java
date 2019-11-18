@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 //Programmers Level 2 : A fine rectangle
-public class Level2_12 {
+// When you cut a rectangle diagonally, fine rectangle is w * h - (w + h - gcd(w,h)).
+public class Level2_12_differ {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
@@ -19,23 +20,13 @@ public class Level2_12 {
 	}
 	
 	public static long solution(int w,int h) {
+		long answer = 0;
 		long W = (long) w;
 		long H = (long) h;
-		long answer = W*H;
         long cd = gcd(w,h);
+        // fine rectangle(answer) is w * h - (w + h - gcd(w,h)).
+        answer = W * H - (W + H - cd);
         
-        long sw = w/cd;
-        long sh = h/cd;
-        
-        answer -= cd * sw * sh;
-        
-        long uncut_rectangle = 0;
-        
-        for(int i = 1; i < sw; i++){
-            uncut_rectangle += i * sh/sw;
-        }
-        
-        answer += uncut_rectangle * 2 * cd;
         return answer;
     }
 	

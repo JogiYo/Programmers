@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
 
+// Programmers Level 2 : Find Prime number
+// Using Permutation, Exclude Duplicates(Using HashSet)
 public class Level2_18 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -19,6 +21,7 @@ public class Level2_18 {
         char[] list = numbers.toCharArray();
         Set<Integer> primeList = new HashSet<>();
         
+        // nP1, nP2, ..., nPr (In all cases)
         for(int i = 1; i <= list.length; i++) {
         	perm(list, 0, list.length, i, primeList);
         }
@@ -28,6 +31,7 @@ public class Level2_18 {
         return answer;
     }
 
+	// Permutation
 	private static void perm(char[] list, int depth, int n, int r, Set<Integer> primeList) {
 		if(depth == r) {
 			StringBuilder s = new StringBuilder();
@@ -54,6 +58,7 @@ public class Level2_18 {
 		list[i] = temp;
 	}
 	
+	// Check for prime numbers.
 	private static void isPrime(Set<Integer> primeList, StringBuilder s) {
 		int x = Integer.parseInt(String.valueOf(s));
 		boolean prime = true;

@@ -27,7 +27,7 @@ public class Level2_25 {
 		System.out.print(sb);
 	}
 	
-	public static int solution(int [][]board)
+	public static int solution(int[][] board)
     {
         int answer = 0;
         int[][] dp = new int[board.length+1][board[0].length+1];

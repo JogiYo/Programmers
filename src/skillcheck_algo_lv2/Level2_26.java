@@ -3,6 +3,8 @@ package skillcheck_algo_lv2;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+// Programmers Level 2: the next big number
+// Using while loop
 public class Level2_26 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

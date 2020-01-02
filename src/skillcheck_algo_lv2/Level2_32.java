@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-// Programmers Level 2 : the maximum and the maximum value
+// Programmers Level 2 : the maximum and the minimum value
 // Using String to Integer conversion
 public class Level2_32 {
 	public static void main(String[] args) throws Exception{

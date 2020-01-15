@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// Programmers Level 2 : Open Chat room (2019 KAKAO BLIND RECRUITMENT)
+// using HashMap and list
 public class Level2_46 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

@@ -3,8 +3,11 @@ package skillcheck_algo_lv3;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
 // Programmers Level 3 : Brian's troubles (2017 KAKAO CODE Qualifier)
+// test case : https://programmers.co.kr/learn/questions/9618
 public class Level3_5 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -17,6 +20,7 @@ public class Level3_5 {
 	
 	public static String solution(String sentence) {	
 		HashMap<Character, Integer> set = new HashMap<Character, Integer>();
+		Queue<String> qu = new LinkedList<String>();
 		
 		String temp_sen = sentence;
 		for(int i = 0; i < temp_sen.length(); i++) {
@@ -32,125 +36,126 @@ public class Level3_5 {
 			}
 		}
 		
-		int rule_seq = 1;
 		for(int i = 0; i < sentence.length(); i++) {
 			char ch = sentence.charAt(i);
-			
+			if(ch == ' ') return "invalid";
 			if(set.containsKey(ch)) {
-				if(i == 0) return "invalid";
 				// rule 1
 				if(set.get(ch) == 1) {
+					if(i == 0) return "invalid";
+					if(i == sentence.length()-1) return "invalid";
 					if(!(sentence.charAt(i-1) >= 65 && sentence.charAt(i-1) <= 90 && sentence.charAt(i+1) >= 65 && sentence.charAt(i+1) <= 90)) {
 						return "invalid";
 					}
-					if(rule_seq == 1) {
-						if(i == 1) {
-							sentence = sentence.substring(i-1, i+2) + " " + sentence.substring(i+2);
-						}
-						else {
-							sentence = sentence.substring(0, i-1) + " " + sentence.substring(i-1, i+2) + " " + sentence.substring(i+2);
-						}
+					String word = sentence.substring(i-1, i+2);
+					sentence = sentence.substring(i+2);
+					word = word.replaceAll(Character.toString(ch), "");
+					if(i != 1) {
+						qu.offer(sentence.substring(0, i-1));
 					}
-					else if(rule_seq == set.size()) {
-						sentence = sentence.substring(0, i-1) + " " + sentence.substring(i-1, i+2);
-					} 
-					else {
-						sentence = sentence.substring(0, i-1) + " " + sentence.substring(i-1, i+2) + " " + sentence.substring(i+2);
-						
-					}
-					sentence = sentence.replaceAll(Character.toString(ch), "");
+					qu.offer(word);
 				}
 				// rule 1
 				else if(set.get(ch) >= 3) {
 					if(i == 0) return "invalid";
 			
-					for(int j = i; j <= sentence.lastIndexOf(ch)+1; j += 2) {
+					int start = i - 1;
+					int end = sentence.lastIndexOf(ch) + 1;
+					
+					for(int j = i; j <= sentence.lastIndexOf(ch); j += 2) {
 						if(sentence.charAt(j) != ch) return "invalid";
 						if(i != 0 && !(sentence.charAt(i-1) >= 65 && sentence.charAt(i-1) <= 90)) return "invalid";
 						if(!(sentence.charAt(j+1) >= 65 && sentence.charAt(j+1) <= 90)) {
 							return "invalid";
 						}
 					}
-					if(rule_seq == 1) {
-						if(i == 1) {
-							sentence = sentence.substring(i-1, sentence.lastIndexOf(ch)+2) + " " + sentence.substring(sentence.lastIndexOf(ch)+2);
-						}
-						else {
-							sentence = sentence.substring(0, i-1) + " " + sentence.substring(i-1, sentence.lastIndexOf(ch)+2) + " " + sentence.substring(sentence.lastIndexOf(ch)+2);
+					
+					String word = sentence.substring(start, end + 1);
+					if(i != 1) {
+						qu.offer(sentence.substring(0, i-1));
+					}
+					sentence = sentence.substring(end+1);
+					
+					word = word.replaceAll(Character.toString(ch), "");
+					for(int t = 0; t < word.length(); t++) {
+						char cha = word.charAt(t);
+						if(set.containsKey(cha)) {
+							return "invalid";
 						}
 					}
-					else if(rule_seq == set.size()) {
-						sentence = sentence.substring(0, i-1)+ " " + sentence.substring(i-1, sentence.lastIndexOf(ch)+2);
-						
-					} 
-					else {
-						sentence = sentence.substring(0, i-1) + " " + sentence.substring(i-1, sentence.lastIndexOf(ch)+2) + " " + sentence.substring(sentence.lastIndexOf(ch)+2);
-						
-					}
-					sentence = sentence.replaceAll(Character.toString(ch), "");
+					qu.offer(word);
 				}
 				
 				// rule 1 and rule 2
 				else {
 					int upper_case_cnt = 0;
+					int start = i;
+					int end = sentence.lastIndexOf(ch);
+					
 					for(int j = i+1; j < sentence.lastIndexOf(ch); j++) {
 						if(sentence.charAt(j) >= 65 && sentence.charAt(j) <= 90) upper_case_cnt++;
 					}
 					
 					if(upper_case_cnt == 1) {
-						for(int j = i; j <= sentence.lastIndexOf(ch)+1; j += 2) {
+						for(int j = i; j <= sentence.lastIndexOf(ch); j += 2) {
 							if(sentence.charAt(j) != ch) return "invalid";
 							if(i != 0 && !((sentence.charAt(i-1) >= 65 && sentence.charAt(i-1) <= 90) || sentence.charAt(i-1) == ' ')) return "invalid";
-							if(!(sentence.charAt(j+1) >= 65 && sentence.charAt(j+1) <= 90)) {
-								return "invalid";
-							}
+			
 						}
-						if(rule_seq == 1) {
-							if(i == 0) {
-								sentence = sentence.substring(i+1, sentence.lastIndexOf(ch)+2) + " " + sentence.substring(sentence.lastIndexOf(ch)+2);
-							}
-							else {
-								if(i == 1) {
-									sentence = sentence.substring(i-1, sentence.lastIndexOf(ch)+2) + " " + sentence.substring(sentence.lastIndexOf(ch)+2);
-								}
-								else {
-									sentence = sentence.substring(0, i-1) + " " + sentence.substring(i-1, sentence.lastIndexOf(ch)+2) + " " + sentence.substring(sentence.lastIndexOf(ch)+2);
-								}
-							}
-
-						}
-						else if(rule_seq == set.size()) {
-							sentence = sentence.substring(0, i-1) + sentence.substring(i-1, sentence.lastIndexOf(ch)+2);
-						} 
-						else {
-							sentence = sentence.substring(0, i-1) + " " + sentence.substring(i-1, sentence.lastIndexOf(ch)+2) + " " + sentence.substring(sentence.lastIndexOf(ch)+2);
-							
-						}
-						sentence = sentence.replaceAll(Character.toString(ch), "");
 					}
+					else if(upper_case_cnt == 0) return "invalid";
 					
-					else {
-						if(rule_seq == 1) {
-							if(i == 0) {
-								sentence = sentence.substring(i+1, sentence.lastIndexOf(ch)) + " " + sentence.substring(sentence.lastIndexOf(ch) + 1);
-							}
-							else {
-								sentence = sentence.substring(0, i) + " " + sentence.substring(i+1, sentence.lastIndexOf(ch)) + " " + sentence.substring(sentence.lastIndexOf(ch) + 1);
-							}
+					int rule_count = 0;
+					String word;
+					if(i != 0 && upper_case_cnt == 1) {
+						word = sentence.substring(start-1, end+2);
+						if(start-1 != 0) {
+							qu.offer(sentence.substring(0, start-1));
 						}
-						else if(rule_seq == set.size()) {
-							sentence = sentence.substring(0, i) + sentence.substring(i+1, sentence.lastIndexOf(ch));
+						char cha = word.charAt(i);
+						word = word.replaceAll(Character.toString(cha), "");
+						sentence = sentence.substring(end+2);
+						qu.offer(word);
+					}
+					else {
+						if(start != 0) {
+							qu.offer(sentence.substring(0, start));
+						}
+						word = sentence.substring(start+1, end);
+						boolean rule_use = false;
+						for(int t = 0; t < word.length(); t++) {
+							char cha = word.charAt(t);
+							if(set.containsKey(cha)) {
+								rule_use = true;
+								if(set.get(cha) == 2 && word.length() != 5) return "invalid";
+								else {
+									word = word.replaceAll(Character.toString(cha), "");
+									rule_count++;
+									t = -1;
+								}
+							}
+							if(rule_count == 2) return "invalid";
+						}
+						
+						if(rule_use) {
+							sentence = sentence.substring(start+1, end) + sentence.substring(end + 1);
 						}
 						else {
-							sentence = sentence.substring(0, i) + " " + sentence.substring(i+1, sentence.lastIndexOf(ch)) + " " +  sentence.substring(sentence.lastIndexOf(ch) + 1);	
+							sentence = sentence.substring(end+1);
+							qu.offer(word);
 						}
 					}
 				}	
-				rule_seq++;
-				i = 0;
+				i = -1;
 			}
 		}
-		sentence = sentence.replaceAll(" +", " ");
-		return sentence;
+		if(!sentence.isEmpty()) qu.offer(sentence);
+		
+		String answer = "";
+		while(!qu.isEmpty()) {
+			if(qu.size() != 1) answer += qu.poll() + " ";
+			else answer += qu.poll();
+		}
+		return answer;
     }
 }

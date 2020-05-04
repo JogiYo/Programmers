@@ -41,6 +41,7 @@ public class Level3_5 {
 			if(ch == ' ') return "invalid";
 			if(set.containsKey(ch)) {
 				// rule 1
+				// ex) ABAaA
 				if(set.get(ch) == 1) {
 					if(i == 0) return "invalid";
 					if(i == sentence.length()-1) return "invalid";
@@ -48,14 +49,15 @@ public class Level3_5 {
 						return "invalid";
 					}
 					String word = sentence.substring(i-1, i+2);
-					sentence = sentence.substring(i+2);
-					word = word.replaceAll(Character.toString(ch), "");
 					if(i != 1) {
 						qu.offer(sentence.substring(0, i-1));
 					}
+					sentence = sentence.substring(i+2);
+					word = word.replaceAll(Character.toString(ch), "");
 					qu.offer(word);
 				}
 				// rule 1
+				// ex) ABAaAaAaA
 				else if(set.get(ch) >= 3) {
 					if(i == 0) return "invalid";
 			
@@ -87,6 +89,7 @@ public class Level3_5 {
 				}
 				
 				// rule 1 and rule 2
+				// ex) ABAaAaA
 				else {
 					int upper_case_cnt = 0;
 					int start = i;

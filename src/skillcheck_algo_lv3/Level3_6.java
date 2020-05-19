@@ -3,6 +3,8 @@ package skillcheck_algo_lv3;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+// Programmers Level 3 : Network (DFS/BFS)
+// using dfs
 public class Level3_6 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -23,12 +25,25 @@ public class Level3_6 {
 	
 	public static int solution(int n, int[][] computers) {
         int answer = 0;
+        boolean[] visited = new boolean[computers.length];
         
         for(int i = 0; i < computers.length; i++) {
-        	for(int j = i; j < computers[0].length; j++) {
-        		if(computers[i][j] == 0) answer++;
+        	if(!visited[i]) {
+        		answer++;
+        		dfs(i, visited, computers);
         	}
         }
+        
         return answer;
     }
+
+	public static void dfs(int start, boolean[] visited, int[][] computers) {
+		visited[start] = true;
+		
+		for(int i = 0; i < computers.length; i++) {
+			if(visited[i] == false && computers[start][i] == 1) {
+				dfs(i, visited, computers);
+			}
+		}
+	}
 }

@@ -2,7 +2,6 @@ package skillcheck_algo_lv3;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 
 // Programmers Level 3 : budget
 // using Binary search
@@ -26,9 +25,14 @@ public class Level3_10_other {
 	}
 	
 	public static int solution(int[] budgets, int M) {
-		Arrays.sort(budgets);
-        int left = 0; 
-        int right = budgets[budgets.length - 1];
+		int max = 0;        
+	     
+		for(int budget : budgets) {
+			max = Math.max(budget, max);
+	    }
+		
+		int left = 0; 
+        int right = max;
         while(left <= right) {
             int mid = (left + right) / 2;
             

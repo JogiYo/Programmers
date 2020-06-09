@@ -3,6 +3,9 @@ package skillcheck_algo_lv3;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+// Programmers Level 3 : budget
+// using Binary search
+// recursion
 public class Level3_10 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -22,38 +25,32 @@ public class Level3_10 {
 	}
 	
 	public static int solution(int[] budgets, int M) {
-        int answer = 0;
         int max = 0;
         
         for(int budget : budgets) {
         	max = Math.max(budget, max);
         }
         
-        int left = 0;
-        int right = max;
-        
-        while(left < right) {
-        	int mid = (left + right) / 2;
-        	
-        	long sum = 0;
-        	for(int budget : budgets) {
-        		if(budget > mid) {
-        			sum += mid;
-        		}
-        		else {
-        			sum += budget;
-        		}
-        	}
-        	
-        	if(sum > M) {
-        		right = mid - 1;
-        	}
-        	else {
-        		left = mid + 1;
-        		answer = Math.max(answer, mid);
-        	}
-        }
-        
-        return answer;
+        return binarySearch(budgets, M, 0, max+1);
     }
+
+	private static int binarySearch(int[] budgets, int M, int left, int right) {
+		int mid = (left + right) / 2;
+		
+		if(mid <= left) return left;
+		
+		int sum = 0;
+		for(int budget : budgets) {
+			if(budget > mid) sum += mid;
+			else sum += budget;
+		}
+		
+		int result;
+		if(sum < M) {
+			result = binarySearch(budgets, M, mid, right);
+		}
+		else result = binarySearch(budgets, M, left, mid);
+		
+		return result;
+	}
 }

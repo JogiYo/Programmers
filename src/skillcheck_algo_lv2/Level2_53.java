@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+// Programmers Level 2 : Maximize formula (2020 KAKAO Internship)
+// using dfs
 public class Level2_53 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -38,7 +40,7 @@ public class Level2_53 {
         		opers.add(expression.charAt(i));
         	}
         }
-        // 마지막숫자 추가
+        // add last number
         numbers.add(Long.parseLong(num));
         dfs(0, new char[3]);
         return answer;
@@ -52,6 +54,10 @@ public class Level2_53 {
 			for(int i = 0; i < p.length; i++) {
 				for(int j = 0; j < copyOpers.size(); j++) {
 					if(copyOpers.get(j) == p[i]) {
+						// ex) fomula -> 1 + 2 - 3 * 4
+						// num = {1, 2, 3, 4},  op = {+. -. *}
+						// p[0] = +  -> num[0], op[0], and remove num[0] -> num[0] = 2
+						// res = 3 (add(j, res)), op remove -> j--
 						Long res = calculation(copyNums.remove(j), copyNums.remove(j), p[i]);
 						copyNums.add(j, res);
 						copyOpers.remove(j);
@@ -62,7 +68,7 @@ public class Level2_53 {
 			answer = Math.max(answer, Math.abs(copyNums.get(0)));
 			return;
 		}
-		
+		// Operator precedence
 		for(int i = 0; i < 3; i++) {
 			if(!visited[i]) {
 				visited[i] = true;
@@ -74,7 +80,6 @@ public class Level2_53 {
 	}
 
 	private static Long calculation(Long num1, Long num2, char op) {
-		long num = 0;
 		if(op == '+') {
 			return num1 + num2;
 		}

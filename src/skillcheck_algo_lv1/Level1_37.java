@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+// Programmers Level 1 : Pick two number and add (Monthly Code Challenge Season 1)
+// using arrays.sort
 public class Level1_37 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -25,7 +27,6 @@ public class Level1_37 {
 	
 	public static int[] solution(int[] numbers) {
         ArrayList<Integer> list = new ArrayList<>();
-        Arrays.sort(numbers);
         
         for(int i = 0; i < numbers.length - 1; i++) {
         	for(int j = i+1; j < numbers.length; j++) {
@@ -39,6 +40,7 @@ public class Level1_37 {
         	answer[i] = list.get(i);
         }
         
+        Arrays.sort(answer);
         return answer;
     }
 }

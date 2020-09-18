@@ -2,8 +2,9 @@ package skillcheck_algo_lv2;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
+// Programmers Level 2 : Triangular snail (Monthly Code Challenge Season 1)
+// using loop and conditional
 public class Level2_54 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -23,43 +24,42 @@ public class Level2_54 {
 		for(int i = 1; i <= n; i++) {
 			max_num += i;
 		}
+		answer = new int[max_num];
 		
 		int[][] arr = new int[n][n];
 		int num = 1;
+		int x = 0, y = 0;
+		arr[x][y] = num++;
 		
-		int x = -1, y = 0;
+		// One cycle goes through three steps.
 		while(num <= max_num) {
-			x++;
-			while(x < n && y < n && arr[x][y] == 0) {
-				arr[x][y] = num++;
-				x++;
+			// Step 1. Process to the down
+			while(x + 1 < n && arr[x+1][y] == 0) {
+				arr[++x][y] = num++;
 			}
-			if(x == n) x--;
+			if(num > max_num) break;
 			
-			y++;
-			while(x < n && y < n && arr[x][y] == 0) {
-				arr[x][y] = num++;
-				y++;
+
+			// Step 2. Process to the right
+			while(y + 1 < n && arr[x][y+1] == 0) {
+				arr[x][++y] = num++;
 			}
-			if(y == n) y--;
+			if(num > max_num) break;
 			
-			while(arr[x-1][y-1] == 0) {
+			// Step 3. Process to the top left
+			while(x - 1 >= 0 && y - 1 >= 0 && arr[x-1][y-1] == 0) {
 				arr[--x][--y] = num++;
 			}
+			if(num > max_num) break;
 		}
 		
-		ArrayList<Integer> list = new ArrayList<>();
-		
+		int idx = 0;
 		for(int i = 0; i < n; i++) {
-			for(int j = 0; j < n; j++) {
-				if(arr[i][j] != 0) list.add(arr[i][j]);
+			for(int j = 0; j <= i; j++) {
+				answer[idx++] = arr[i][j];
 			}
 		}
 		
-		answer = new int[list.size()];
-		for(int i = 0; i < answer.length; i++) {
-			answer[i] = list.get(i);
-		}
         return answer;
     }
 }

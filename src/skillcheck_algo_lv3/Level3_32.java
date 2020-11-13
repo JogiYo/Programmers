@@ -21,7 +21,7 @@ public class Level3_32 {
 		System.out.print(sb);
 	}
 	
-	ArrayList<Integer>[] list = new Array
+	static int count = 0;
 	public static int[] solution(int n, long k) {
         int[] answer = new int[n];
         int[] arr = new int[n];
@@ -32,21 +32,27 @@ public class Level3_32 {
         	arr[i] = i+1;
         }
         
-        perm(arr, output, visit, 0, n, n);
+        perm(arr, output, visit, 0, n, n, answer, k);
         return answer;
     }
 
-	private static void perm(int[] arr, int[] output, boolean[] visit, int depth, int n, int r) {
+	private static void perm(int[] arr, int[] output, boolean[] visit, int depth, int n, int r, int[] answer, long k) {
 		if(depth == r) {
-			
+			count++;
+			if((int)k == count) {
+				for(int i = 0; i < r; i++) {
+					answer[i] = output[i];
+				}
+			}
 		}
 		
 		for(int i = 0; i < n; i++) {
 			if(!visit[i]) {
 				visit[i] = true;
 				output[depth] = arr[i];
-				perm(arr, output, visit, depth+1, n, r);
+				perm(arr, output, visit, depth+1, n, r, answer, k);
 				visit[i] = false;
+				if(count == (int) k) break;
 			}
 		}
 		

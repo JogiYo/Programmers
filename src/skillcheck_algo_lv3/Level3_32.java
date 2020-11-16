@@ -37,6 +37,7 @@ public class Level3_32 {
         
         int idx = 0;
         while(n > 0) {
+        	// (n-1)! = facto/n : The number of specific numbers that fits into the place
         	facto /= n;  // ex) (1, 2, 3), find 5th. facto = 6/3 = 2  
         	answer[idx++] = list.get((int)(k/facto)); // k/facto = 4/2 = 2 -> 3
         	list.remove((int)(k/facto));

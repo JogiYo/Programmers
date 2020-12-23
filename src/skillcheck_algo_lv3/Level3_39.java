@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+// Programmers Level 3 : Shuttle Bus
+// using Priority Queue and Convert time to minute.
 public class Level3_39 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -23,7 +25,7 @@ public class Level3_39 {
 
 	public static String solution(int n, int t, int m, String[] timetable) {
         String answer = "";
-        
+        // Sort the crew arrival times in ascending order.
         PriorityQueue<Integer> pq = new PriorityQueue<>(new Comparator<Integer>() {
 			@Override
 			public int compare(Integer o1, Integer o2) {
@@ -35,13 +37,13 @@ public class Level3_39 {
         	int time = Integer.parseInt(table.substring(0,2))*60 + Integer.parseInt(table.substring(3));
         	pq.offer(time);
         }
-        
+        // Converts the first time the bus arrives in minutes. 9:00
         int bus_time = 540;
-        int corn = 0;
-        
+        int corn = 0; // corn bus ride time
+        // Count the number of bus trips
         while(n-- > 0) {
-        	int accept_pass = m;
-        	int time = 0;
+        	int accept_pass = m; // Initialize the maximum capacity
+        	int time = 0; // Last crew's time
         	
         	while(!pq.isEmpty()) {
         		if(pq.peek() <= bus_time && accept_pass > 0) {
@@ -53,12 +55,13 @@ public class Level3_39 {
         	
         	if(n > 0) {
         		if(pq.isEmpty()) {
-        			corn = bus_time + ((n+1) * t);
+        			corn = bus_time + (n * t); // Last bus time
         			break;
         		}
         		
         		bus_time += t;
         	}
+        	// if Last Bus
         	else {
         		if(accept_pass > 0) corn = bus_time;
         		else corn = time-1;

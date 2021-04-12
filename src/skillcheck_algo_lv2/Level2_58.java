@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 // Programmers Level 2 : The shortest distance in the game map
-// using BFS
+// using BFS (Usually, BFS is used to find the shortest distance.)
 public class Level2_58 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

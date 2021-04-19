@@ -58,6 +58,25 @@ public class Level2_59 {
         for(Entry<String, List<Integer>> entry : infos.entrySet()) entry.getValue().sort(null);
         
         answer = new int[query.length];
+        for(int i = 0; i < query.length; ++i) {
+        	String[] str = query[i].replaceAll("-", "").split(" and | ");
+        	String key = String.join("", str[0], str[1], str[2], str[3]);
+        	int score = Integer.parseInt(str[4]);
+        	
+        	List<Integer> list = infos.getOrDefault(key, empty);
+        	
+        	int start = 0, end = list.size();
+        	
+        	while(start < end) {
+        		int mid = (start + end) / 2;
+        		
+        		if(list.get(mid) < score) start = mid + 1;
+        		else end = mid;
+        	}
+        	
+        	answer[i] = list.size() - start;
+        }
+        
         return answer;
     }
 }

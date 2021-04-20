@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+// Programmers Level 2 : Rank search (2021 KAKAO BLIND RECRUITMENT)
+// using Bit operation(for combination) and binary search(for score search)
 public class Level2_59 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -44,7 +46,7 @@ public class Level2_59 {
         for(String inf : info) {
         	String[] info_str = inf.split(" ");
         	int score = Integer.parseInt(info_str[4]);
-        	// search 0,0,0,0 -> 1,1,1,1 (combination)
+        	// search 0,0,0,0 -> 1,1,1,1 (combination) (0 ~ 15)
         	for(int i = 0; i < (1 << 4); ++i) {
         		StringBuilder key = new StringBuilder();
         		for(int j = 0; j < 4; ++j) {
@@ -55,9 +57,12 @@ public class Level2_59 {
         }
         
         List<Integer> empty = new ArrayList<>();
+        // Sort the scores of each combination in ascending order.
         for(Entry<String, List<Integer>> entry : infos.entrySet()) entry.getValue().sort(null);
         
         answer = new int[query.length];
+        // If you find lower_bound (the smallest value among the indexes with matching values) through the binary search 
+        // and subtract it from the size of the list, the number of people with the corresponding score or higher is derived.
         for(int i = 0; i < query.length; ++i) {
         	String[] str = query[i].replaceAll("-", "").split(" and | ");
         	String key = String.join("", str[0], str[1], str[2], str[3]);

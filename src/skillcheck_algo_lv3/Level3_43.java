@@ -25,48 +25,35 @@ public class Level3_43 {
         
         for(int i = 0; i < s.length; ++i) {
         	String str = s[i];
-        	Stack<String> stk = new Stack<>();
+        	Stack<Character> stk = new Stack<>();
+        	int cnt = 0;
         	
-        	while(str.indexOf("110") != -1) {
-        		int idx = str.indexOf("110");
-        		str = str.substring(0, idx) + str.substring(idx + 3);
-        		stk.push("110");
+        	for(int j = 0; j < str.length(); ++j) {
+        		char z = str.charAt(j);
+        		
+        		if(stk.size() >= 2) {
+        			char y = stk.pop();
+        			char x = stk.pop();
+        			
+        			if(x == '1' && y == '1' && z == '0') {
+        				cnt++;
+        				continue;
+        			}
+        			else {
+        				stk.push(x);
+        				stk.push(y);
+        				stk.push(z);
+        			}
+        		}
+        		else stk.push(z);
         	}
         	
-        	String add_str = "";
-        	while(!stk.isEmpty()) {
-        		add_str += stk.pop();
-        	}
-        	
-        	if(str.length() >= 3) {
-        		if(str.indexOf("111") != -1) {
-            		int idx = str.indexOf("111");
-            		str = str.substring(0, idx) + add_str + str.substring(idx);
-            	}
-            	else {
-            		str += add_str;
-            	}
-        	}
-        	else if(str.length() == 2) {
-        		if(str.indexOf("11") != -1) {
-            		int idx = str.indexOf("11");
-            		str = str.substring(0, idx) + add_str + str.substring(idx);
-            	}
-            	else {
-            		str += add_str;
-            	}
+        	if(cnt == 0) {
+        		answer[i] = s[i];
         	}
         	else {
-        		if(str.indexOf("1") != -1) {
-            		int idx = str.indexOf("1");
-            		str = str.substring(0, idx) + add_str + str.substring(idx);
-            	}
-            	else {
-            		str += add_str;
-            	}
+        		
         	}
-        	
-        	answer[i] = str;
         }
         return answer;
     }

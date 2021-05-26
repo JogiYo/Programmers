@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Stack;
 
+// Programmers Level 3 : Moving 110
+// Greedy algorithm
+// ref : https://prgms.tistory.com/57
 public class Level3_43 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -27,7 +30,7 @@ public class Level3_43 {
         	String str = s[i];
         	Stack<Character> stk = new Stack<>();
         	int cnt = 0;
-        	
+        	// '110' drawing and string transformation using stack
         	for(int j = 0; j < str.length(); ++j) {
         		char z = str.charAt(j);
         		
@@ -52,7 +55,22 @@ public class Level3_43 {
         		answer[i] = s[i];
         	}
         	else {
+        		int idx = stk.size();
+        		boolean flag = false;
+        		StringBuilder strb = new StringBuilder();
         		
+        		while(!stk.isEmpty()) {
+        			if(!flag && stk.peek() == '1') idx--;
+        			if(!flag && stk.peek() == '0') flag = true;
+        			strb.insert(0, stk.pop());
+        		}
+        		
+        		while(cnt > 0) {
+        			strb.insert(idx,  "110");
+        			idx += 3;
+        			cnt--;
+        		}
+        		answer[i] = strb.toString();
         	}
         }
         return answer;

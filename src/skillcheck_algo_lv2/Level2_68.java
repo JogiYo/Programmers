@@ -2,9 +2,10 @@ package skillcheck_algo_lv2;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
+// Programmers Level 2 : star at intersection
 public class Level2_68 {
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -28,8 +29,9 @@ public class Level2_68 {
     }
 
     private static String[] solution(int[][] line) {
-        String[] answer;
-        ArrayList<int[]> list = new ArrayList<>();
+        String[] answer = {};
+        HashSet<Point> set = new HashSet<>();
+
         int x_min = Integer.MAX_VALUE, x_max = Integer.MIN_VALUE;
         int y_min = Integer.MAX_VALUE, y_max = Integer.MIN_VALUE;
 
@@ -43,20 +45,22 @@ public class Level2_68 {
                 long d = line[j][1];
                 long f = line[j][2];
 
-                if(a*d - b*c == 0) continue;
+                long denominator = (a * d) - (b * c);
+                if(denominator == 0) continue;
+
                 long num1 = (b*f - e*d);
                 long num2 = (e*c - a*f);
-                if(num1 % (a*d - b*c) != 0 || num2 % (a*d - b*c) != 0) continue;
+                if(num1 % denominator != 0 || num2 % denominator != 0) continue;
 
-                int x = (int) (num1 / (a*d - b*c));
-                int y = (int) (num2 / (a*d - b*c));
+                int x = (int) (num1 / denominator);
+                int y = (int) (num2 / denominator);
 
                 x_min = Math.min(x_min, x);
                 y_min = Math.min(y_min, y);
                 x_max = Math.max(x_max, x);
                 y_max = Math.max(y_max, y);
 
-                list.add(new int[] {x, y});
+                set.add(new Point(x, y));
             }
         }
 
@@ -70,15 +74,24 @@ public class Level2_68 {
 
         Arrays.fill(answer, sb.toString());
 
-        for(int[] l : list) {
-            int row = Math.abs(l[1] - y_max);
-            int col = Math.abs(l[0] + x_max);
-
-            char[] charArray = answer[row].toCharArray();
-            charArray[col] = '*';
-            answer[row] = String.valueOf(charArray);
+        long row, col;
+        for(Point p : set) {
+            row = Math.abs(p.y - y_max);
+            col = Math.abs(p.x - x_min);
+            answer[(int)row] = answer[(int)row].substring(0, (int)col) + "*"
+                    + answer[(int)row].substring((int)col + 1);
         }
 
         return answer;
+    }
+
+    private static class Point {
+        long x;
+        long y;
+
+        public Point(long x, long y) {
+            this.x = x;
+            this.y = y;
+        }
     }
 }

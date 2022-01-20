@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
+// Programmers Level 2 : Parking Fee Calculation
+// use HashMap and implementation
 public class Level2_70 {
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -51,7 +53,7 @@ public class Level2_70 {
 
         if(!parking_map.isEmpty()) {
             for(String key : parking_map.keySet()) {
-                time_map.put(key, time_map.get(key) + 1439 - parking_map.get(key));
+                time_map.put(key, time_map.getOrDefault(key, 0) + 1439 - parking_map.get(key));
             }
         }
 
@@ -62,7 +64,7 @@ public class Level2_70 {
 
             int fee = fees[1];
             if(total_min > fees[0]) {
-                fee += Math.ceil((total_min - fees[0]) / fees[2]) * fees[3];
+                fee += Math.ceil((double)(total_min - fees[0]) / (double)fees[2]) * fees[3];
             }
 
             list.add(new Carfee(key, fee));

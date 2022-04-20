@@ -3,6 +3,8 @@ package skillcheck_algo_lv2;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+// Programmers Level 2 : archery competition
+// use DSF, backtracking
 public class Level2_72 {
     static int[] result = {-1};
     static int[] ryan;
@@ -55,6 +57,10 @@ public class Level2_72 {
             return;
         }
 
-        for(int i = 0; i < 11 && ry)
+        for(int i = 0; i < 11 && ryan[i] <= info[i]; ++i) {
+            ryan[i]++;
+            dfs(info, cnt + 1, n);
+            ryan[i]--;
+        }
     }
 }

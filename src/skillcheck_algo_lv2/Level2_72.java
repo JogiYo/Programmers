@@ -48,7 +48,8 @@ public class Level2_72 {
             }
 
             if(ryanp > apeachp) {
-                if(ryanp - apeachp > max) {
+                // If the number of the lowest score is the same, the case of the next lowest score more often is returned.
+                if(ryanp - apeachp >= max) {
                     result = ryan.clone();
                     max = ryanp - apeachp;
                 }

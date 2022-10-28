@@ -3,6 +3,7 @@ package skillcheck_algo_lv1;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+// Programmers Level 1 : Babbling
 public class Level1_52 {
     static String[] pronun = {"aya", "ye", "woo", "ma"};
 
@@ -22,10 +23,9 @@ public class Level1_52 {
         for (String s : babbling) {
             String temp = s;
             int length = temp.length();
-            int cur = -1;
 
             boolean check = false;
-            // 연속체크
+            // Continuity check
             for (int j = 0; j < 4; ++j) {
                 String str = pronun[j] + pronun[j];
                 if(s.contains(str)) {
@@ -37,14 +37,13 @@ public class Level1_52 {
             if(check) continue;
 
             for (int j = 0; j < 4; ++j) {
-                if (temp.contains(pronun[j]) && cur != j) {
+                if (temp.contains(pronun[j])) {
                     if (j == 0 || j == 2) {
                         temp = temp.replaceFirst(pronun[j], "000");
                     } else {
                         temp = temp.replaceFirst(pronun[j], "00");
                     }
 
-                    cur = j;
                     j = -1;
                 }
             }

@@ -24,6 +24,18 @@ public class Level1_52 {
             int length = temp.length();
             int cur = -1;
 
+            boolean check = false;
+            // 연속체크
+            for (int j = 0; j < 4; ++j) {
+                String str = pronun[j] + pronun[j];
+                if(s.contains(str)) {
+                    check = true;
+                    break;
+                }
+            }
+
+            if(check) continue;
+
             for (int j = 0; j < 4; ++j) {
                 if (temp.contains(pronun[j]) && cur != j) {
                     if (j == 0 || j == 2) {

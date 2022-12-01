@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+// Programmers Level 2 : Hail sequence definite integral
+// use cumulative sum
 public class Level2_83 {
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -41,6 +43,35 @@ public class Level2_83 {
         for(int i = 1; i < cnt+1; ++i) {
             double previousVal = yVal[i-1];
             yVal[i] = calYVal(previousVal);
+        }
+
+        // Araa of Trapezoid
+        double[] area = new double[cnt+1];
+        for(int i = 1; i < cnt+1; ++i) {
+            area[i] = (yVal[i-1] + yVal[i])/2;
+        }
+
+        // Cumulative sum of areas
+        double[] cumulSum = new double[cnt+1];
+        cumulSum[1] = area[1];
+        for(int i = 2; i < cnt+1; ++i) {
+            cumulSum[i] = area[i] + cumulSum[i-1];
+        }
+
+        for(int i = 0; i < ranges.length; ++i) {
+            int start = ranges[i][0];
+            int end = cnt + ranges[i][1];
+
+            // definite integral from start to end (area)
+            if(end > start) {
+                double integral = cumulSum[end] - cumulSum[start];
+
+                // The condition is to display only one decimal place.
+                String str = String.format("%.1f", integral);
+                answer[i] = Double.parseDouble(str);
+            }
+            else if(start > end) answer[i] = -1.0;
+            else answer[i] = 0.0;
         }
 
         return answer;

@@ -57,7 +57,7 @@ public class Level2_93 {
     private static int findUpper(int[] weights, int weight, int i) {
         int left = i;
         int right = weights.length - 1;
-        while(left > right) {
+        while(left < right) {
             int mid = left + (right - left)/2;
 
             /* Given the given ratio,

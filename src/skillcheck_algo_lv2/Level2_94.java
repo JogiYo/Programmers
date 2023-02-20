@@ -29,6 +29,8 @@ public class Level2_94 {
         int sx = 0, sy = 0;
         int ex = -1, ey = -1;
 
+        // 틀린 이유 : 무조건 레버를 내려야만 탈출을 할 수 있다. 그러므로 시작점에서 레버가 있는 곳으로 간 후에
+        // 다시 레버에서 출구로 가는 가장 짧은 구간을 구해야 한다.
         for(int i = 0; i < maze.length; ++i) {
             for(int j = 0; j < maze[0].length; ++j) {
                 if(maps[i].charAt(j) == 'X') maze[i][j] = 0;

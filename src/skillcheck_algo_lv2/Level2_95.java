@@ -3,6 +3,8 @@ package skillcheck_algo_lv2;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+// Programmers Level 2 : Tic-tac-toe alone
+// Setting conditions
 public class Level2_95 {
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -35,16 +37,14 @@ public class Level2_95 {
         // Is the number of X suitable when O is made in one line?
         if(o_count >= 3) {
             if(matchCheck(board, 'O')) {
-                if(o_count - x_count == 1) return 1;
-                else return 0;
+                if(o_count <= x_count) return 0;
             }
         }
 
         // Is the number of O suitable when X is made in one line?
         if(x_count >= 3) {
             if(matchCheck(board, 'X')) {
-                if(o_count - x_count == 0) return 1;
-                else return 0;
+                if(o_count > x_count) return 0;
             }
         }
 
